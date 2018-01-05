@@ -6,7 +6,7 @@ import Audio from './Audio'
 import Button from './Button'
 import Controls from './Controls'
 import Cover from './Cover'
-import TrackManager from './TrackManager'
+import SpotifyManager from './SpotifyManager'
 
 /* escutar o transitionend, caso no meio tempo o playing mudou, não ir para a proxima rodada */
 
@@ -20,11 +20,12 @@ class CirclePlayer extends Component {
       playerSrc: null,
     }
 
-    this.emitAction = this.emitAction.bind(this)
     this.setAudioEl = this.setAudioEl.bind(this)
     this.setPlayerData = this.setPlayerData.bind(this)
+    this.onChange = this.onChange.bind(this)
     this.onPlay = this.onPlay.bind(this)
     this.onPause = this.onPause.bind(this)
+    this.onEnded = this.onPause.bind(this)
   }
 
   setPlayerData(src, cover) {
@@ -35,13 +36,12 @@ class CirclePlayer extends Component {
   }
 
   setAudioEl(ref) {
-    console.log("aqui")
     this.setState({
       audioEl: ref
     })
   }
 
-  emitAction(state) {
+  onChange(state) {
     this.props.onChange(state);
   }
 
@@ -51,6 +51,10 @@ class CirclePlayer extends Component {
 
   onPause(){
     this.props.onPause()
+  }
+
+  onEnded(){
+    this.props.onEnded()
   }
 
   render() {
@@ -81,18 +85,17 @@ class CirclePlayer extends Component {
             onError={this.onError}
           />
 
-          <TrackManager
+          <SpotifyManager
             spotifyTrackId={this.props.spotifyTrackId}
             spotifyToken={this.props.spotifyToken}
             spotifyWebAPIURL={this.props.spotifyWebAPIURL}
-
             setPlayerData={this.setPlayerData}
           />
 
           <Controls
             width={width}
             height={height}
-            onClick={this.emitAction}
+            onClick={this.onChange}
             playing={ playing }
             color={color}
           />

@@ -12,7 +12,12 @@ class Button extends Component {
     render() {
         const { onClick, playing, color, buttonWidth, buttonHeight } = this.props
 
-        const Icon = playing ? <PauseButton color={color} width={buttonWidth} height={buttonHeight} /> : <PlayButton color={color} width={buttonWidth} height={buttonHeight} />
+        const Icon = playing ? (
+            <PauseButton color={color} width={buttonWidth} height={buttonHeight} />
+        ) : (
+            <PlayButton color={color} width={buttonWidth} height={buttonHeight} />
+        )
+        
         return (
             <a href="#" className="circle-player-button" onClick={ onClick }>
                 {Icon}

@@ -30,7 +30,8 @@ class Controls extends Component {
 						buttonHeight={ buttonHeight } 
 						color={ color }
 						onClick={() => {
-							onClick(!playing)
+							console.log("clicado", playing ? false : true)
+							onClick(playing ? false : true)
 						}}
 					/>
 				</div>

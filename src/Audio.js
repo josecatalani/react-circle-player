@@ -7,25 +7,35 @@ class Audio extends Component {
 
 	componentDidMount(){
 		const audio = this.elem;
+		const { onPlay, onPause, onEnded, onError, onSeeking } = this.props
 
 		audio.addEventListener('play', (e) => {
 			console.log("started play")
-			this.props.onPlay(e)
+			onPlay(e)
 		})
 
 		audio.addEventListener('pause', (e) => {
 			console.log("paused")
-			this.props.onPause(e)
+			onPause(e)
 		})
 
 		audio.addEventListener('ended', (e) => {
-			console.log("paused")
-			this.props.onEnded(e)
+			console.log("ended")
+			onEnded(e)
 		})
 		
 		audio.addEventListener('error', (e) => {
 			console.log("paused")
-			this.props.onError(e)
+			onError(e)
+		})
+
+		audio.addEventListener('seeking', (e) => {
+			console.log("seeking")
+			onSeeking(e)
+		})
+
+		audio.addEventListener('loadstart', (e) => {
+			console.log("loadstart")
 		})
 	}
 
